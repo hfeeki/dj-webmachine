@@ -111,7 +111,8 @@ class WMResponse(HttpResponse):
     headerlist = property(_headerlist__get, _headerlist__set, _headerlist__del, doc=_headerlist__get.__doc__)
 
     def __setitem__(self, header, value):
-        header, value = self._convert_to_ascii(header, value)
+        header = self._convert_to_charset(header, 'ascii')
+        value = self._convert_to_charset(value, 'ascii')
         self._headers[header.lower()] = (header, value)
 
     def __delitem__(self, header):
